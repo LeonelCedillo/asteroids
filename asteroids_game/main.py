@@ -10,6 +10,9 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+    clock = pygame.time.Clock()
+    td = 0
+
     while True:
         screen.fill("black")
         pygame.display.flip() # refresh the screen
@@ -17,6 +20,8 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+        # tick(60): pause the game loop until 1/60th of a second has passed (60 fps).
+        td = clock.tick(60) / 1000 # from (16.67) milliseconds to seconds 
         
 
 
