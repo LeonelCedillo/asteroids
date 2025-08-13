@@ -8,6 +8,9 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     td = 0
+    updatable = pygame.sprite.Group() # all the objects that can be updated
+    drawable = pygame.sprite.Group()  # all the objects that can be drawn
+    Player.containers = (updatable, drawable)
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     while True:
@@ -15,11 +18,11 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        player.update(td)
+        updatable.update(td)
         screen.fill("black")
-        player.draw(screen)
+        for obj in drawable:
+            obj.draw(screen)
         pygame.display.flip() # refresh the screen
-        
         # tick(60): pause the game loop for 1/60th of a second (60 FPS).
         td = clock.tick(60) / 1000 # from (16.67) milliseconds to seconds 
         
