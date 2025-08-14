@@ -1,5 +1,5 @@
 # this allows us to use code from the open-source pygame library throughout this file
-import pygame
+import pygame, sys
 from constants import *
 from player import Player
 from asteroid import Asteroid
@@ -27,10 +27,19 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+
         updatable.update(td)
+
+        for asteroid in asteroids:
+            if asteroid.collides_with(player):
+                print("Game over!")
+                sys.exit()
+
         screen.fill("black")
+
         for obj in drawable:
             obj.draw(screen)
+            
         pygame.display.flip() # refresh the screen
         # tick(60): pause the game loop for 1/60th of a second (60 FPS).
         td = clock.tick(60) / 1000 # from (16.67) milliseconds to seconds 
