@@ -10,7 +10,7 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
-    td = 0
+    dt = 0
     # Groups: all the objects that can be updated and drawn
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()  
@@ -31,7 +31,8 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-        updatable.update(td)
+        updatable.update(dt)
+        player.timer -= dt
 
         for asteroid in asteroids:
             if asteroid.collides_with(player):
@@ -45,7 +46,7 @@ def main():
 
         pygame.display.flip() # refresh the screen
         # tick(60): pause the game loop for 1/60th of a second (60 FPS).
-        td = clock.tick(60) / 1000 # from (16.67) milliseconds to seconds 
+        dt = clock.tick(60) / 1000 # from (16.67) milliseconds to seconds 
         
 
 
